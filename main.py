@@ -22,8 +22,10 @@ new_df_columns = [
     'penalidade',
     'competencia',
     'constatacao_infracao',
+    'medida_administrativa',
     'quando_autuar',
     'quando_nao_autuar',
+    'definicoes_procedimentos',
     'informacoes_complementares',
     ]
 new_df_dict = {key: [] for key in new_df_columns}
@@ -50,6 +52,10 @@ for sheet_name in sheet_names:
             new_df_dict['competencia'].append(remove_new_line_field(content[5]))
             new_df_dict['constatacao_infracao'].append(remove_new_line_field(content[6]))
             new_df_dict['quando_nao_autuar'].append(remove_new_line_text(content[8]))
+        if not pd.isna(content[4]) and content[4].startswith('Medida Administrativa'):
+            new_df_dict['medida_administrativa'].append(remove_new_line_field(content[4]))
+            new_df_dict['definicoes_procedimentos'].append(remove_new_line_field(content[8]))
             import ipdb; ipdb.set_trace(context=10)
+
         elif content[0] == 'Informações Complementares:':
             new_df_dict['informacoes_complementares'].append(remove_new_line_field(content[1]))
