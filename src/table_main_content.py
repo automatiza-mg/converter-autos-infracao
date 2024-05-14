@@ -1,13 +1,16 @@
 # import ipdb; ipdb.set_trace(context=10)
 
 import pandas as pd
-from utils import (
+from .utils import (
+    build_new_df_dict,
     remove_new_line_field,
     remove_new_line_text,
     ListWithGet,
 )
 
-def get_table_main_content(df, sheet_name, indexes, new_df_dict):
+def get_table_main_content(df, sheet_name, indexes):
+
+    new_df_dict = build_new_df_dict()
 
     for i, index in enumerate(indexes):
         for column in range(0, column_len:= len(df.columns)):
@@ -17,13 +20,13 @@ def get_table_main_content(df, sheet_name, indexes, new_df_dict):
             next_i = ListWithGet(indexes)[i+1]
 
             if content[index] == 'FICHA DE FISCALIZAÇÃO':
+                new_df_dict['sheet'].append(sheet_name)
                 new_df_dict['tipificacao_resumida'].append(remove_new_line_field(content[index + 1]))
                 new_df_dict['amparo_legal'].append(remove_new_line_field(content[index + 2]))
                 new_df_dict['tipificacao_enquadramento'].append(remove_new_line_field(content[index + 3]))
                 new_df_dict['gravidade'].append(remove_new_line_field(content[index + 4]))
                 new_df_dict['infrator'].append(remove_new_line_field(content[index + 5]))
                 new_df_dict['pontuacao'].append(remove_new_line_field(content[index + 6]))
-                # import ipdb; ipdb.set_trace(context=10)
                 new_df_dict['quando_autuar'].append(remove_new_line_text(content[index + 8]))
                 for text in range(index + 9, next_i + 1):
                     if not pd.isna(content[text]) and content[text] != 'Informações Complementares:':
@@ -51,3 +54,4 @@ def get_table_main_content(df, sheet_name, indexes, new_df_dict):
                 for text in range(index + 9, next_i + 1):
                     if not pd.isna(content[text]):
                         new_df_dict['exemplos_campo_observacoes_ait'][-1] += f' {remove_new_line_text(content[text])}'
+    return new_df_dict
