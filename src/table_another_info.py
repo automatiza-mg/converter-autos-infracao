@@ -1,7 +1,6 @@
 # import ipdb; ipdb.set_trace(context=10)
 import pandas as pd
-from utils import (
-    remove_new_line_field,
+from .utils import (
     remove_new_line_text,
 )
 
