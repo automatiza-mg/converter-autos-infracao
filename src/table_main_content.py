@@ -1,16 +1,13 @@
 # import ipdb; ipdb.set_trace(context=10)
 
 import pandas as pd
-from .utils import (
-    build_new_df_dict,
+from utils import (
     remove_new_line_field,
     remove_new_line_text,
     ListWithGet,
 )
 
-def get_table_main_content(df, sheet_name, indexes):
-
-    new_df_dict = build_new_df_dict()
+def get_table_main_content(df, new_df_dict, sheet_name, indexes):
 
     for i, index in enumerate(indexes):
         for column in range(0, column_len:= len(df.columns)):
@@ -54,4 +51,4 @@ def get_table_main_content(df, sheet_name, indexes):
                 for text in range(index + 9, next_i + 1):
                     if not pd.isna(content[text]):
                         new_df_dict['exemplos_campo_observacoes_ait'][-1] += f' {remove_new_line_text(content[text])}'
-    return new_df_dict
+    return None
